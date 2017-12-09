@@ -1,11 +1,21 @@
 package snakepractice;
-
+import java.util.*;
 
 public class SnakePractice {
+    
+    
 
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Menu mainMenu = new Menu();
+        mainMenu.mostrarMenu();
+        
+        
+        
+                
+            }
+        
     }
-    
-}
+
+ 
