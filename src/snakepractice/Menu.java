@@ -56,34 +56,53 @@ public class Menu {
         }
     };
     public void imprimirTablero(){
-    Scanner mainTablero = new Scanner(System.in);
-        this.Tablero[0][70] = new Posicion();
-        int[][] matriz = new int[35][70];
             for(int i=0;i<35;i++){
                 for(int j=0; j<70;j++){
-                    if(j==70){
-                        this.Tablero[i][j]= new Posicion(i,j,'X');
-                    }
-                    else{                    
                         this.Tablero[i][j]= new Posicion(i,j,' ');
-                    }
-                    
                 }
              
         };
-        int tipoRandom = (int) (Math.random() * 4);
-            switch(tipoRandom){
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                default:
-                    break;
+        
+        int contadormas10 = 40;
+            int contadormenos10= 30;
+            int contadorcero= 20;
+            
+            while(contadormas10>0){
+                int columnaRandom=(int) (Math.random() * 70); 
+                int filaRandom=(int) (Math.random() * 35);
+            if(this.Tablero[filaRandom][columnaRandom].tipo==' '){
+                this.Tablero[filaRandom][columnaRandom].setTipo('%');
+                contadormas10--;
             }
+            }
+            
+            while(contadormenos10>0){
+                int columnaRandom=(int) (Math.random() * 70); 
+                int filaRandom=(int) (Math.random() * 35);
+            if(this.Tablero[filaRandom][columnaRandom].tipo==' '){
+                this.Tablero[filaRandom][columnaRandom].setTipo('$');
+                contadormenos10--;
+            }
+            }
+            
+            while(contadorcero>0){
+                int columnaRandom=(int) (Math.random() * 70); 
+                int filaRandom=(int) (Math.random() * 35);
+            if(this.Tablero[filaRandom][columnaRandom].tipo==' '){
+                this.Tablero[filaRandom][columnaRandom].setTipo('#');
+                contadorcero--;
+            }
+            }
+            for(int i=0;i<35;i++){
+                for(int j=0; j<70;j++){
+                       System.out.print(this.Tablero[i][j].tipo);
+                }
+                System.out.println('-');
+             
+        };
+            
+         
+        
     }
     
     public void imprimirHistoria(){};
