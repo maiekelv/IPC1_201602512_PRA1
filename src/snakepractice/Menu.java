@@ -6,13 +6,22 @@ import java.util.Scanner;
 public class Menu {
     public Posicion[][] Tablero;
     public Intento[] Intentos;
+    public Intento intentoActual;
     
     public Menu(){
     this.Tablero = new Posicion[35][70];
     this.Intentos = new Intento[1];
     }
     
-    
+    public void asignarCuerpoCulebra(){
+        int contadorLargo = 0;
+        
+        while(contadorLargo<this.intentoActual.Snake.largoActual){
+            this.Tablero[this.intentoActual.Snake.cuerpo[contadorLargo].x][this.intentoActual.Snake.cuerpo[contadorLargo].y].setTipo('X');
+            contadorLargo++;
+        }
+        
+    }
     public void mostrarMenu(){
         
         
@@ -68,18 +77,18 @@ public class Menu {
                 }
              
         };
-        Intento intentoActual = new Intento();
+         this.intentoActual = new Intento();
         
-        Snake culebra = new Snake();
+        
             int xCabezaRandom=(int) (Math.random() * 70); 
                 int yCabezaRandom=(int) (Math.random() * 35);
         
         Posicion cabeza = new Posicion(xCabezaRandom, yCabezaRandom,'X');
         Posicion cola = new Posicion(xCabezaRandom, yCabezaRandom,'X');
-        culebra.setCabeza(cabeza);
-        culebra.setCola(cola);
-        
+        Snake culebra = new Snake(cabeza, cola);
+        this.intentoActual.setSnake(culebra);
             
+            this.asignarCuerpoCulebra();
             int contadormas10 = 40;
             int contadormenos10= 30;
             int contadorcero= 20;
