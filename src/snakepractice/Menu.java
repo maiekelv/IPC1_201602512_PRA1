@@ -42,16 +42,18 @@ public class Menu {
                
                 switch(seleccion){
                     case 1:
+                        leerUsuario();
+                        iniciarTablero();
                         imprimirTablero();
                         break;
                     case 2:
-                        
+                        regresarJuego();
                         break;
+                    
                     case 3:
                         break;
+                    
                     case 4:
-                        break;
-                    case 5:
                         System.exit(0);
                         break;
                     default:
@@ -71,17 +73,48 @@ public class Menu {
         }
     };
     public void imprimirTablero(){
+    for(int i=0;i<35;i++){
+                for(int j=0; j<70;j++){
+                       System.out.print(this.Tablero[i][j].tipo);
+                }
+                System.out.println(' ');
+        
+        };
+    System.out.println("Nombre :" + intentoActual.Usuario.Nombre);
+    System.out.println("Fecha de Nacimiento  " + intentoActual.Usuario.fechaNacimiento);
+    System.out.println("Punteo " + intentoActual.Punteo);
+    }
+    public void leerUsuario(){
+        this.intentoActual = new Intento();
+        System.out.println("Ingrese su Nombre");
+        Scanner sc = new Scanner(System.in);
+        String nombre = sc.nextLine();
+    
+        System.out.println("Ingrese su Fecha de Nacimiento");
+        String fechaDeNacimiento = sc.nextLine();
+        this.intentoActual.Usuario = new Usuario(nombre, fechaDeNacimiento);
+    }
+    public void iniciarTablero(){
             for(int i=0;i<35;i++){
                 for(int j=0; j<70;j++){
+                    if (i==0||i==34){
+                    this.Tablero[i][j] = new Posicion(i,j,'#');
+                    }
+                    else if(j==0||j==69){
+                    this.Tablero[i][j] = new Posicion(i,j,'#');
+                    }
+                    else{
+                    
                         this.Tablero[i][j]= new Posicion(i,j,' ');
+                    }
                 }
              
         };
-         this.intentoActual = new Intento();
+         
         
         
-            int xCabezaRandom=(int) (Math.random() * 70); 
-                int yCabezaRandom=(int) (Math.random() * 35);
+            int xCabezaRandom=(int) (Math.random() * 35); 
+                int yCabezaRandom=(int) (Math.random() * 70);
         
         Posicion cabeza = new Posicion(xCabezaRandom, yCabezaRandom,'X');
         Posicion cola = new Posicion(xCabezaRandom, yCabezaRandom,'X');
@@ -122,28 +155,61 @@ public class Menu {
             }
             
             
-            for(int i=0;i<35;i++){
-                for(int j=0; j<70;j++){
-                       System.out.print(this.Tablero[i][j].tipo);
-                }
-                System.out.println('-');
-                
-        
             
-            
-                
-        
-             
-        };
-        
             
          
         
     }
     
     public void imprimirHistoria(){};
-    public void iniciarJuego(){};
-    public void regresarJuego(){};
+    public void iniciarJuego(){
+        Scanner lectordeteclas = new Scanner(System.in);
+        while (true){
+            try{
+             
+                String seleccion = lectordeteclas.nextLine();
+               
+                switch(seleccion){
+                    case "w":
+                        leerUsuario();
+                        iniciarTablero();
+                        imprimirTablero();
+                        break;
+                    case "s":
+                        break;
+                    
+                    case "a":
+                        break;
+                    
+                    case "d":
+                        
+                        break;
+                    case "m":
+                        mostrarMenu();
+                        
+                        break;
+                        
+                    default:
+                        System.out.println("Ingrese una opcion valida");
+                        break;
+                        
+                    
+                } 
+                int enter = System.in.read();
+                this.borrarConsola();
+            
+            }
+            catch(Exception e){
+                System.out.println("Error leyendo Tecla");
+                lectordeteclas = new Scanner(System.in);
+            }
+            
+        }
+    };
+    public void regresarJuego(){
+    imprimirTablero();
+    iniciarJuego();
+    };
     public void crearTablero(){
         
     };
@@ -168,3 +234,4 @@ public class Menu {
     }
         
 }
+

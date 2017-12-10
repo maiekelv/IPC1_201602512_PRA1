@@ -7,6 +7,7 @@ public class Intento {
     public int Punteo;
     
     public Intento(){
+        this.Punteo = 0;
         
     }
     public Intento(Usuario Usuario, Snake Snake, int Punteo){
