@@ -14,7 +14,10 @@ public class Menu {
     
     
     public void mostrarMenu(){
-        Scanner lectordetuculo = new Scanner(System.in);
+        
+        
+        
+        Scanner lectordeteclas = new Scanner(System.in);
         while(true){
             System.out.println("***********Juego Snake************");
             System.out.println("");
@@ -22,10 +25,11 @@ public class Menu {
             System.out.println("2.Regresar al Juego");
             System.out.println("3.Historial");
             System.out.println("4.Salir");
+            System.out.println("Instrucciones");
             System.out.println("");
             System.out.println("Ingrese una opcion");
             try{
-                int seleccion =lectordetuculo.nextInt();
+                int seleccion =lectordeteclas.nextInt();
                
                 switch(seleccion){
                     case 1:
@@ -37,6 +41,8 @@ public class Menu {
                     case 3:
                         break;
                     case 4:
+                        break;
+                    case 5:
                         System.exit(0);
                         break;
                     default:
@@ -51,7 +57,7 @@ public class Menu {
             }
             catch(Exception e){
                 System.out.println("Error leyendo Tecla");
-                lectordetuculo = new Scanner(System.in);
+                lectordeteclas = new Scanner(System.in);
             }
         }
     };
@@ -62,8 +68,19 @@ public class Menu {
                 }
              
         };
+        Intento intentoActual = new Intento();
         
-        int contadormas10 = 40;
+        Snake culebra = new Snake();
+            int xCabezaRandom=(int) (Math.random() * 70); 
+                int yCabezaRandom=(int) (Math.random() * 35);
+        
+        Posicion cabeza = new Posicion(xCabezaRandom, yCabezaRandom,'X');
+        Posicion cola = new Posicion(xCabezaRandom, yCabezaRandom,'X');
+        culebra.setCabeza(cabeza);
+        culebra.setCola(cola);
+        
+            
+            int contadormas10 = 40;
             int contadormenos10= 30;
             int contadorcero= 20;
             
@@ -92,14 +109,24 @@ public class Menu {
                 this.Tablero[filaRandom][columnaRandom].setTipo('#');
                 contadorcero--;
             }
+            
             }
+            
+            
             for(int i=0;i<35;i++){
                 for(int j=0; j<70;j++){
                        System.out.print(this.Tablero[i][j].tipo);
                 }
                 System.out.println('-');
+                
+        
+            
+            
+                
+        
              
         };
+        
             
          
         
@@ -114,23 +141,21 @@ public class Menu {
     
         public void borrarConsola()
 {
-    String sistemaOperativo=System.getProperty("os.name"); //Recogemos en una variable el tipo de su SO                              
+    String sistemaOperativo=System.getProperty("os.name");                              
     
-    if(sistemaOperativo.contains("Windows")) //Comprobamos si se trata de Windows
+    if(sistemaOperativo.contains("Windows")) 
     {
         try{  
-                Runtime.getRuntime().exec("cls"); //cls es el comando de limpieza en Windows, podéis probarlo abriendo cmd.
+                Runtime.getRuntime().exec("cls"); 
         }catch(Exception e){}
     }
             
     else
     {   try{
-            Runtime.getRuntime().exec("clear"); // Clear es el comando de limpieza en linux.
+            Runtime.getRuntime().exec("clear"); 
         }catch(Exception e){}
     }
-    //Solo comprobamos para Windows y linux a modo de ejemplo, ya que son los SO más comunes.
-}
     
-  
-  
+    }
+        
 }
