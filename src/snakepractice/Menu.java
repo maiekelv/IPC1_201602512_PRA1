@@ -7,10 +7,14 @@ public class Menu {
     public Posicion[][] Tablero;
     public Intento[] Intentos;
     public Intento intentoActual;
+    public int numeroJuegos;
+    public boolean juegoGuardado;
     
     public Menu(){
+    this.juegoGuardado = true;
+    this.numeroJuegos = 0;
     this.Tablero = new Posicion[35][70];
-    this.Intentos = new Intento[1];
+    this.Intentos = new Intento[300];
     }
     
     public void asignarCuerpoCulebra(){
@@ -61,7 +65,9 @@ public class Menu {
                         break;
                     
                     case 3:
+                        imprimirHistorial();
                         break;
+                        
                     
                     case 4:
                         System.exit(0);
@@ -90,7 +96,7 @@ public class Menu {
                 System.out.println(' ');
         
         };
-    System.out.println("Nombre :" + intentoActual.Usuario.Nombre);
+    System.out.println("Nombre: " + intentoActual.Usuario.Nombre);
     System.out.println("Fecha de Nacimiento  " + intentoActual.Usuario.fechaNacimiento);
     System.out.println("Punteo " + intentoActual.Punteo);
     }
@@ -127,6 +133,8 @@ public class Menu {
             int xCabezaRandom=(int) (Math.random() * 35);
             if(xCabezaRandom==0||xCabezaRandom==34){
                xCabezaRandom=1;
+               
+               
             }
             int yCabezaRandom=(int) (Math.random() * 70);
             if(yCabezaRandom==0||yCabezaRandom==69){
@@ -178,8 +186,31 @@ public class Menu {
         
     }
     
-    public void imprimirHistoria(){};
+    public void imprimirHistorial(){
+        int contadorJuegos = 0;
+        while(contadorJuegos<this.numeroJuegos){
+            System.out.print(this.Intentos[contadorJuegos].Usuario.Nombre);
+            System.out.print("     ");
+            System.out.println(this.Intentos[contadorJuegos].Punteo);
+            System.out.println(" ");
+            contadorJuegos++;
+        }
+        try {
+        int Enter = System.in.read();
+        mostrarMenu();
+        }
+        catch (Exception e){
+            mostrarMenu();
+        }
+        
+    };
     public void iniciarJuego(){
+        if(!juegoGuardado){
+        this.Intentos[this.numeroJuegos]= this.intentoActual;
+        this.numeroJuegos++;
+        }
+        this.juegoGuardado = false;
+        
         Scanner lectordeteclas = new Scanner(System.in);
         while (true){
             try{
@@ -260,8 +291,6 @@ public class Menu {
         }
     }
     
-    
-    
     public void regresarJuego(){
     imprimirTablero();
     iniciarJuego();
@@ -271,8 +300,7 @@ public class Menu {
         
     };
     
-        public void borrarConsola()
-{
+        public void borrarConsola(){
     String sistemaOperativo=System.getProperty("os.name");                              
     
     if(sistemaOperativo.contains("Windows")) 
@@ -292,6 +320,9 @@ public class Menu {
 public void validarPunteo(){
     if(this.intentoActual.Punteo<1){
     System.out.println("Has Perdido");
+    this.Intentos[this.numeroJuegos] = this.intentoActual;
+    this.numeroJuegos++;
+    this.juegoGuardado = true;
     try{
         int Enter = System.in.read();
         mostrarMenu();
@@ -303,6 +334,9 @@ public void validarPunteo(){
     
     else if(this.intentoActual.Punteo>99){
     System.out.println("Has Ganado");
+    this.Intentos[this.numeroJuegos] = this.intentoActual;
+    this.numeroJuegos++;
+    this.juegoGuardado = true;
     try{
         int Enter = System.in.read();
         mostrarMenu();
