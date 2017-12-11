@@ -44,10 +44,40 @@ public class Snake {
     }
     
 
+    public int mover(Posicion siguiente, int punteoActual){
+        if (siguiente.tipo=='#'){
+           correrCuerpo(siguiente) ;
+            
+        }
+        else if(siguiente.tipo=='%'){
+            punteoActual = punteoActual + 10;            
+            correrCuerpo(siguiente) ;
+            this.largoActual++; 
+        }
+        else if(siguiente.tipo=='$'){
+           correrCuerpo(siguiente) ;
+           punteoActual = punteoActual -10;
+           this.largoActual--;
+            
+        }
+        else if(siguiente.tipo==' '){
+           correrCuerpo(siguiente) ;
+        }
+        
+        return punteoActual;
+    }
     public void setCuerpo(Posicion[] cuerpo) {
         this.cuerpo = cuerpo;
     }
-    
+    public void correrCuerpo(Posicion siguiente){
+        int contadorCorrer=largoActual-1;
+            while(contadorCorrer>=0){
+                this.cuerpo[contadorCorrer+1]= this.cuerpo[contadorCorrer];
+                contadorCorrer--;
+            }
+            this.cuerpo[0]= siguiente;
+            this.cabeza = siguiente;
+    }
     public int mover(int codigoTecla){
     
         return 1;

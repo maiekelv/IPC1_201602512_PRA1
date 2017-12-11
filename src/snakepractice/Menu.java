@@ -14,6 +14,15 @@ public class Menu {
     }
     
     public void asignarCuerpoCulebra(){
+        for(int i=0;i<35;i++){
+                for(int j=0; j<70;j++){
+                    if(this.Tablero[i][j].tipo=='X'){
+                    this.Tablero[i][j].setTipo(' ');
+                    
+                    } 
+            }
+                
+        };
         int contadorLargo = 0;
         
         while(contadorLargo<this.intentoActual.Snake.largoActual){
@@ -45,6 +54,7 @@ public class Menu {
                         leerUsuario();
                         iniciarTablero();
                         imprimirTablero();
+                        iniciarJuego();
                         break;
                     case 2:
                         regresarJuego();
@@ -93,6 +103,7 @@ public class Menu {
         System.out.println("Ingrese su Fecha de Nacimiento");
         String fechaDeNacimiento = sc.nextLine();
         this.intentoActual.Usuario = new Usuario(nombre, fechaDeNacimiento);
+        this.intentoActual.Punteo =10;
     }
     public void iniciarTablero(){
             for(int i=0;i<35;i++){
@@ -113,8 +124,14 @@ public class Menu {
          
         
         
-            int xCabezaRandom=(int) (Math.random() * 35); 
-                int yCabezaRandom=(int) (Math.random() * 70);
+            int xCabezaRandom=(int) (Math.random() * 35);
+            if(xCabezaRandom==0||xCabezaRandom==34){
+               xCabezaRandom=1;
+            }
+            int yCabezaRandom=(int) (Math.random() * 70);
+            if(yCabezaRandom==0||yCabezaRandom==69){
+               yCabezaRandom=1;
+            }
         
         Posicion cabeza = new Posicion(xCabezaRandom, yCabezaRandom,'X');
         Posicion cola = new Posicion(xCabezaRandom, yCabezaRandom,'X');
@@ -167,35 +184,36 @@ public class Menu {
         while (true){
             try{
              
-                String seleccion = lectordeteclas.nextLine();
                
-                switch(seleccion){
-                    case "w":
-                        leerUsuario();
-                        iniciarTablero();
+                String seleccion = lectordeteclas.nextLine();
+                
+                if(seleccion.equals("w")){    
+                        moverArriba();
+                        asignarCuerpoCulebra();
                         imprimirTablero();
-                        break;
-                    case "s":
-                        break;
-                    
-                    case "a":
-                        break;
-                    
-                    case "d":
-                        
-                        break;
-                    case "m":
+                }
+                else if(seleccion.equals("s")){
+                    moverAbajo();
+                    asignarCuerpoCulebra();
+                    imprimirTablero();
+                }
+                else if(seleccion.equals("a")){
+                    moverIzquierda();
+                    asignarCuerpoCulebra();
+                    imprimirTablero();
+                }
+                else if(seleccion.equals("d")){
+                    moverDerecha();
+                    asignarCuerpoCulebra();
+                    imprimirTablero();
+                }
+                else if(seleccion.equals("m")){
+               
                         mostrarMenu();
-                        
-                        break;
-                        
-                    default:
+                }
+                else{
                         System.out.println("Ingrese una opcion valida");
-                        break;
-                        
-                    
-                } 
-                int enter = System.in.read();
+                }
                 this.borrarConsola();
             
             }
@@ -206,10 +224,49 @@ public class Menu {
             
         }
     };
+    public void moverArriba(){
+        int filaActual=this.intentoActual.Snake.cabeza.x;
+        if(filaActual>1){
+        Posicion siguiente = this.Tablero[this.intentoActual.Snake.cabeza.x-1][this.intentoActual.Snake.cabeza.y];
+        this.intentoActual.Punteo=this.intentoActual.Snake.mover(siguiente, this.intentoActual.Punteo);
+        validarPunteo();
+        }
+        
+        
+        
+    }
+    public void moverAbajo(){
+    int filaActual=this.intentoActual.Snake.cabeza.x;
+        if(filaActual<33){
+        Posicion siguiente = this.Tablero[this.intentoActual.Snake.cabeza.x+1][this.intentoActual.Snake.cabeza.y];
+        this.intentoActual.Punteo=this.intentoActual.Snake.mover(siguiente, this.intentoActual.Punteo);
+        validarPunteo();
+        }
+    }
+    public void moverIzquierda(){
+    int columnaActual=this.intentoActual.Snake.cabeza.y;
+        if(columnaActual>1){
+        Posicion siguiente = this.Tablero[this.intentoActual.Snake.cabeza.x][this.intentoActual.Snake.cabeza.y-1];
+        this.intentoActual.Punteo=this.intentoActual.Snake.mover(siguiente, this.intentoActual.Punteo);
+        validarPunteo();
+        }
+    }
+    public void moverDerecha(){
+    int columnaActual=this.intentoActual.Snake.cabeza.y;
+        if(columnaActual<68){
+        Posicion siguiente = this.Tablero[this.intentoActual.Snake.cabeza.x][this.intentoActual.Snake.cabeza.y+1];
+        this.intentoActual.Punteo=this.intentoActual.Snake.mover(siguiente, this.intentoActual.Punteo);
+        validarPunteo();
+        }
+    }
+    
+    
+    
     public void regresarJuego(){
     imprimirTablero();
     iniciarJuego();
     };
+    
     public void crearTablero(){
         
     };
@@ -232,6 +289,28 @@ public class Menu {
     }
     
     }
-        
+public void validarPunteo(){
+    if(this.intentoActual.Punteo<1){
+    System.out.println("Has Perdido");
+    try{
+        int Enter = System.in.read();
+        mostrarMenu();
+    }
+    catch(Exception e){
+        mostrarMenu();
+    }
+    }
+    
+    else if(this.intentoActual.Punteo>99){
+    System.out.println("Has Ganado");
+    try{
+        int Enter = System.in.read();
+        mostrarMenu();
+    }
+    catch(Exception e){
+        mostrarMenu();
+    }
+    }
+}        
 }
 
