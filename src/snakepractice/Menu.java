@@ -99,6 +99,7 @@ public class Menu {
     System.out.println("Nombre: " + intentoActual.Usuario.Nombre);
     System.out.println("Fecha de Nacimiento  " + intentoActual.Usuario.fechaNacimiento);
     System.out.println("Punteo " + intentoActual.Punteo);
+    System.out.println("Movimientos Realizados "+ intentoActual.Snake.contadorMovimientos);
     }
     public void leerUsuario(){
         this.intentoActual = new Intento();
@@ -190,9 +191,10 @@ public class Menu {
         int contadorJuegos = 0;
         while(contadorJuegos<this.numeroJuegos){
             System.out.print(this.Intentos[contadorJuegos].Usuario.Nombre);
-            System.out.print("     ");
-            System.out.println(this.Intentos[contadorJuegos].Punteo);
-            System.out.println(" ");
+            System.out.print("  ");
+            System.out.print(this.Intentos[contadorJuegos].Punteo);
+            System.out.print("  ");
+            System.out.println(this.Intentos[contadorJuegos].Snake.contadorMovimientos);
             contadorJuegos++;
         }
         try {

@@ -4,11 +4,13 @@ public class Snake {
     public int largoActual;
     public Posicion cabeza, cola;
     public Posicion [] cuerpo;
+    public int contadorMovimientos;
     
     
     public Snake (){
         this.cuerpo= new Posicion[2450];
         this.largoActual = 1;
+        this.contadorMovimientos = 0;
     }
     public Snake(Posicion cabeza, Posicion cola, Posicion [] cuerpo){
         this.cabeza = cabeza;
@@ -45,23 +47,23 @@ public class Snake {
     
 
     public int mover(Posicion siguiente, int punteoActual){
-        if (siguiente.tipo=='#'){
-           correrCuerpo(siguiente) ;
-            
-        }
-        else if(siguiente.tipo=='%'){
+          
+        if(siguiente.tipo=='%'){
             punteoActual = punteoActual + 10;            
             correrCuerpo(siguiente) ;
             this.largoActual++; 
+            this.contadorMovimientos++;
         }
         else if(siguiente.tipo=='$'){
            correrCuerpo(siguiente) ;
            punteoActual = punteoActual -10;
            this.largoActual--;
+           this.contadorMovimientos++;
             
         }
         else if(siguiente.tipo==' '){
            correrCuerpo(siguiente) ;
+           this.contadorMovimientos++;
         }
         
         return punteoActual;
