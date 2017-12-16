@@ -9,7 +9,7 @@ public class Snake {
     
     public Snake (){
         this.cuerpo= new Posicion[2450];
-        this.largoActual = 1;
+        this.largoActual =1;
         this.contadorMovimientos = 0;
     }
     public Snake(Posicion cabeza, Posicion cola, Posicion [] cuerpo){
